@@ -112,19 +112,19 @@ brew update --force # https://github.com/Homebrew/brew/issues/1151
 brew bundle --file=- <<EOF
 tap "thoughtbot/formulae"
 tap "homebrew/services"
-tap "universal-ctags/universal-ctags"
+#tap "universal-ctags/universal-ctags"
 tap "caskroom/cask"
 
 # Unix
-brew "universal-ctags", args: ["HEAD"]
+#brew "universal-ctags", args: ["HEAD"]
 brew "git"
 brew "openssl"
 brew "rcm"
 brew "reattach-to-user-namespace"
-brew "the_silver_searcher"
+#brew "the_silver_searcher"
 brew "tmux"
 brew "vim"
-brew "watchman"
+#brew "watchman"
 brew "zsh"
 
 # Heroku
@@ -138,7 +138,7 @@ brew "hub"
 brew "imagemagick"
 
 # Testing
-brew "qt@5.5" if MacOS::Xcode.installed?
+#brew "qt@5.5" if MacOS::Xcode.installed?
 
 # Programming language prerequisites and package managers
 brew "libyaml" # should come after openssl
@@ -149,6 +149,43 @@ cask "gpg-suite"
 # Databases
 brew "postgres", restart_service: :changed
 brew "redis", restart_service: :changed
+
+# Applications 
+cask "google-chrome"
+cask "visual-studio-code"
+code --install-extension vscodevim
+cask "sql-tabs"
+cask "lastpass"
+
+# Android setup
+cask "java"
+brew install ant
+brew install maven
+brew install gradle
+brew install android-sdk
+brew install android-ndk
+android update sdk --no-ui
+
+sdkmanager "platform-tools" "platforms;android-28"
+sdkmanager "build-tools;28.0.2"
+
+cask "intel-haxm"
+
+export ANT_HOME=/usr/local/opt/ant
+export MAVEN_HOME=/usr/local/opt/maven
+export GRADLE_HOME=/usr/local/opt/gradle
+export ANDROID_HOME=/usr/local/share/android-sdk
+export ANDROID_NDK_HOME=/usr/local/share/android-ndk
+export INTEL_HAXM_HOME=/usr/local/Caskroom/intel-haxm
+
+export PATH=$ANT_HOME/bin:$PATH
+export PATH=$MAVEN_HOME/bin:$PATH
+export PATH=$GRADLE_HOME/bin:$PATH
+export PATH=$ANDROID_HOME/tools:$PATH
+export PATH=$ANDROID_HOME/platform-tools:$PATH
+export PATH=$ANDROID_HOME/build-tools/28.0.2:$PATH
+
+
 EOF
 
 if brew list | grep --silent "qt@5.5"; then
