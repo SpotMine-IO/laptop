@@ -109,67 +109,78 @@ fi
 
 fancy_echo "Updating Homebrew formulae ..."
 brew update --force # https://github.com/Homebrew/brew/issues/1151
-brew bundle --file=- <<EOF
-tap "thoughtbot/formulae"
-tap "homebrew/services"
+fancy_echo "bundling..."
+#brew bundle #--file=- <<EOF
+fancy_echo "tapping..."
+brew tap "thoughtbot/formulae"
+brew tap "homebrew/services"
 #tap "universal-ctags/universal-ctags"
-tap "caskroom/cask"
+brew tap "caskroom/cask"
 
 # Unix
 #brew "universal-ctags", args: ["HEAD"]
-brew "git"
-brew "openssl"
-brew "rcm"
-brew "reattach-to-user-namespace"
+brew install "git"
+brew install "openssl"
+brew install "rcm"
+brew install "reattach-to-user-namespace"
 #brew "the_silver_searcher"
-brew "tmux"
-brew "vim"
+brew install "tmux"
+brew install "vim"
 #brew "watchman"
-brew "zsh"
+brew install "zsh"
 
 # Heroku
-brew "heroku"
-brew "parity"
+brew install "heroku"
+brew install "parity"
 
 # GitHub
-brew "hub"
+brew install "hub"
 
 # Image manipulation
-brew "imagemagick"
+brew install "imagemagick"
 
 # Testing
 #brew "qt@5.5" if MacOS::Xcode.installed?
 
 # Programming language prerequisites and package managers
-brew "libyaml" # should come after openssl
-brew "coreutils"
-brew "yarn"
-cask "gpg-suite"
+brew install "libyaml" # should come after openssl
+brew install "coreutils"
+brew install "yarn"
+brew cask install "gpg-suite"
 
 # Databases
-brew "postgres", restart_service: :changed
-brew "redis", restart_service: :changed
+brew install "postgresql" 
+#, restart_service: :changed
+brew services restart postgresql
+brew install "redis"
+#, restart_service: :changed
+brew services restart redis 
 
 # Applications 
-cask "google-chrome"
-cask "visual-studio-code"
-code --install-extension vscodevim
-cask "sql-tabs"
-cask "lastpass"
+brew cask install "google-chrome"
+brew cask install "visual-studio-code"
+code --install-extension vscodevim.vim
+brew cask install "sql-tabs"
+brew cask install "slack"
+
 
 # Android setup
-cask "java"
+brew tap caskroom/versions
+touch ~/.android/repositories.cfg   
+brew cask install "java8"
 brew install ant
 brew install maven
 brew install gradle
-brew install android-sdk
-brew install android-ndk
-android update sdk --no-ui
+brew tap homebrew/cask
+brew cask install android-sdk
+brew cask install android-ndk
+#android update sdk --no-ui
+sdkmanager --update 
 
 sdkmanager "platform-tools" "platforms;android-28"
 sdkmanager "build-tools;28.0.2"
 
-cask "intel-haxm"
+brew cask install "intel-haxm"
 
 export ANT_HOME=/usr/local/opt/ant
 export MAVEN_HOME=/usr/local/opt/maven
@@ -186,13 +197,11 @@ export PATH=$ANDROID_HOME/platform-tools:$PATH
 export PATH=$ANDROID_HOME/build-tools/28.0.2:$PATH
 
 
-EOF
-
-if brew list | grep --silent "qt@5.5"; then
-  fancy_echo "Symlink qmake binary to /usr/local/bin for Capybara Webkit..."
-  brew unlink qt@5.5
-  brew link --force qt@5.5
-fi
+#if brew list | grep --silent "qt@5.5"; then
+#  fancy_echo "Symlink qmake binary to /usr/local/bin for Capybara Webkit..."
+#  brew unlink qt@5.5
+#  brew link --force qt@5.5
+#fi
 
 fancy_echo "Update heroku binary..."
 brew unlink heroku
@@ -239,6 +248,8 @@ bundle config --global jobs $((number_of_cores - 1))
 fancy_echo "Installing latest Node..."
 bash "$HOME/.asdf/plugins/nodejs/bin/import-release-team-keyring"
 install_asdf_language "nodejs"
+
+npm install -g cordova ionic@3.20.0 gulp
 
 if [ -f "$HOME/.laptop.local" ]; then
   fancy_echo "Running your customizations from ~/.laptop.local ..."
