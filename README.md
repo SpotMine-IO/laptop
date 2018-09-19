@@ -1,3 +1,14 @@
+Clutch! specific intro
+======
+These are the additional steps I (Robert) followed when setting up my machine. 
+1. Install computer updates via App Store - enable auto updates
+3. Setup encrypted Time Machine with external hard drive - generate and store encryption password with Lastpass
+4. Backup for the first time before making any further changes
+5. Install Xcode via the App Store https://itunes.apple.com/us/app/xcode/id497799835?mt=12
+6. Open Xcode and accept agreements, some additional components will install
+7. Run the laptop setup per https://github.com/SpotMine-IO/laptop
+8. Install LastPass Universal Mac Installer from lastpass.com
+
 Laptop
 ======
 
