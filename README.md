@@ -8,6 +8,7 @@ These are the additional steps I (Robert) followed when setting up my machine.
 6. Open Xcode and accept agreements, some additional components will install
 7. Run the laptop setup per https://github.com/SpotMine-IO/laptop
 8. Install LastPass Universal Mac Installer from lastpass.com
+9. Setup FileVault disk encryption
 
 Laptop
 ======
