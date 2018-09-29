@@ -164,6 +164,7 @@ brew cask install "sql-tabs"
 brew cask install "slack"
 brew cask install gimp
 brew cask install datagrip
+brew cask install stretchly
 
 
 # Android setup
